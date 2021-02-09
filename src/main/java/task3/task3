@@ -1,0 +1,1 @@
+read listOfMaps.xlsx as List<Map<String,Sting>>
