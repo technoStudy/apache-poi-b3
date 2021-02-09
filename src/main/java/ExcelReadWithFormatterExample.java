@@ -3,7 +3,7 @@ import org.apache.poi.ss.usermodel.*;
 import java.io.File;
 import java.io.IOException;
 
-public class ExcelReadExample {
+public class ExcelReadWithFormatterExample {
     public static void main(String[] args) throws IOException {
         File file = new File("src/main/resources/Book1.xlsx");
         Workbook workbook = WorkbookFactory.create(file);
@@ -12,21 +12,14 @@ public class ExcelReadExample {
 
         int numberOfRows = sheet1.getPhysicalNumberOfRows();
         System.out.println(numberOfRows);
-
+        DataFormatter dataFormatter = new DataFormatter();
         for (int i = 0; i < numberOfRows; i++) {
             Row row = sheet1.getRow(i);
             int numberOfCells = row.getPhysicalNumberOfCells();
             for (int j = 0; j < numberOfCells; j++) {
                 Cell cell = row.getCell(j);
-                CellType cellType = cell.getCellType();
-                if(cellType == CellType.STRING) {
-                    String stringCellValue = cell.getStringCellValue();
-                    System.out.print(stringCellValue + " S " );
-                } else if(cellType == CellType.NUMERIC) {
-                    double numericCellValue = cell.getNumericCellValue();
-                    System.out.print(numericCellValue + " N ");
-                }
-
+                String formatted = dataFormatter.formatCellValue(cell);
+                System.out.print(formatted + " ");
             }
             System.out.println();
         }
