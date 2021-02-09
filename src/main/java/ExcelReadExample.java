@@ -18,7 +18,15 @@ public class ExcelReadExample {
             int numberOfCells = row.getPhysicalNumberOfCells();
             for (int j = 0; j < numberOfCells; j++) {
                 Cell cell = row.getCell(j);
-                System.out.print(cell.toString() + " ");
+                CellType cellType = cell.getCellType();
+                if(cellType == CellType.STRING) {
+                    String stringCellValue = cell.getStringCellValue();
+                    System.out.print(stringCellValue + " ");
+                } else if(cellType == CellType.NUMERIC) {
+                    double numericCellValue = cell.getNumericCellValue();
+                    System.out.print(numericCellValue + " ");
+                }
+
             }
             System.out.println();
         }
